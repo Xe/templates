@@ -18,7 +18,7 @@
         version = builtins.substring 0 8 self.lastModifiedDate;
       in {
         defaultPackage = pkgs.buildGoModule {
-          pname = "go-hello";
+          pname = "web-server";
           inherit version;
           src = ./.;
 
@@ -34,9 +34,11 @@
           vendorSha256 = "sha256-pQpattmS9VmO3ZIQUFn66az8GSmB4IvYhTTCFn6SUmo=";
         };
 
-        packages = {};
+        packages = { };
 
-        defaultApp = self.defaultPackage.${system};
+        defaultApp = utils.lib.mkApp {
+          drv = self.defaultPackage.${system};
+        };
 
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [ go gopls goimports go-tools ];
