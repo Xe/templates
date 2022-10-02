@@ -37,7 +37,7 @@
           };
         };
 
-        defaultApp = utils.lib.mkApp { drv = self.packages.${system}.default; };
+        apps.default = utils.lib.mkApp { drv = self.packages.${system}.default; };
 
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [ go gopls gotools go-tools ];
